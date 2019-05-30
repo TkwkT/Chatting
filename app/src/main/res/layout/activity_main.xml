@@ -11,12 +11,18 @@
         tools:context=".MainActivity"
         android:fitsSystemWindows="true">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb_chatting"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@drawable/bg_toolbar"/>
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_chatting"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="40dp"
-            />
+            android:layout_marginTop="?actionBarSize"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_chatting"

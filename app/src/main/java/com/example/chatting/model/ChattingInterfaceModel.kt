@@ -12,7 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.ArrayList
 
-object ChattingModel {
+object ChattingInterfaceModel {
 
     private fun getResult(request:ChattingRequestBean):Call<ChattingPostBackBean>{
         val chattingNewsHttp = ChattingNewsHttp()

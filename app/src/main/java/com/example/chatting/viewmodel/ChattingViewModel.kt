@@ -3,38 +3,22 @@ package com.example.chatting.viewmodel
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.chatting.constdata.TYPE_TEXT
-import com.example.chatting.model.ChattingModel
-import com.example.chatting.room.NewsBean
-import java.util.*
+import com.example.chatting.room.AppDatabase
+import com.example.chatting.utils.runOnNewThread
 
-class ChattingViewModel:ViewModel(){
-    val newsList = MutableLiveData<List<NewsBean>>()
-    private val newsT = ArrayList<NewsBean>()
+class ChattingViewModel :ViewModel(){
 
-    fun getAll(context: Context){
-        ChattingModel.getAll(context){
-            newsT.addAll(it)
-            newsList.value = newsT
+    val newsLast = MutableLiveData<String>()
+
+    fun getLast(context: Context){
+        runOnNewThread {
+            val db =  AppDatabase.getInstance(context)
+            val news = db.newsDao().getLast().news
+            if (news.isEmpty()){
+                newsLast.value ="   "
+            }else{
+                newsLast.value = news
+            }
         }
     }
-
-    fun getNews(context: Context,editText: String){
-        val newsData = NewsBean(editText,true, TYPE_TEXT)
-        newsT.add(newsData)
-        newsList.value = newsT
-        ChattingModel.createRequestData(context,newsData){
-            newsT.addAll(it)
-            newsList.value = newsT
-        }
-    }
-
-
-
-
-
-
-
-
-
 }

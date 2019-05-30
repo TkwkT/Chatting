@@ -1,39 +1,32 @@
 package com.example.chatting
 
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ObservableArrayList
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import com.example.chatting.adapter.ChattingAdapter
+import com.example.chatting.adapter.ChattingInterfaceAdapter
 import com.example.chatting.databinding.ActivityChattingBinding
-import com.example.chatting.room.NewsBean
-import com.example.chatting.viewmodel.ChattingViewModel
+import com.example.chatting.viewmodel.ChattingInterfaceViewModel
 
-class ChattingActivity : AppCompatActivity() {
+class ChattingInterfaceActivity : AppCompatActivity() {
 
-    private lateinit var adapter:ChattingAdapter
-
+    private lateinit var adapter:ChattingInterfaceAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = ChattingAdapter()
+        adapter = ChattingInterfaceAdapter()
         val binding = DataBindingUtil.setContentView<ActivityChattingBinding>(this,R.layout.activity_chatting)
-        val viewModel = ViewModelProviders.of(this).get(ChattingViewModel()::class.java)
+        val viewModel = ViewModelProviders.of(this).get(ChattingInterfaceViewModel()::class.java)
         init(binding,viewModel)
     }
 
-    fun init(binding: ActivityChattingBinding,viewModel: ChattingViewModel){
-        viewModel.getAll(this)
-        submit(viewModel)
+    fun init(binding: ActivityChattingBinding, interfaceViewModel: ChattingInterfaceViewModel){
+        interfaceViewModel.getAll(this)
+        submit(interfaceViewModel)
         binding.rvChattingNews.adapter = adapter
         editTextListen(binding)
-        buttonOnClick(binding,viewModel)
+        buttonOnClick(binding,interfaceViewModel)
     }
 
     fun editTextListen(binding: ActivityChattingBinding){
@@ -61,16 +54,16 @@ class ChattingActivity : AppCompatActivity() {
         })
     }
 
-    fun buttonOnClick(binding: ActivityChattingBinding, viewModel: ChattingViewModel){
+    fun buttonOnClick(binding: ActivityChattingBinding, interfaceViewModel: ChattingInterfaceViewModel){
         binding.btSendNews.setOnClickListener {
             val text = binding.etChattingNews.text.toString()
-            viewModel.getNews(this,text)
-            submit(viewModel)
+            interfaceViewModel.getNews(this,text)
+            submit(interfaceViewModel)
             binding.etChattingNews.setText("")
         }
     }
 
-    fun submit(viewModel: ChattingViewModel){
+    fun submit(viewModel: ChattingInterfaceViewModel){
         viewModel.newsList.observe({
             lifecycle
         },{

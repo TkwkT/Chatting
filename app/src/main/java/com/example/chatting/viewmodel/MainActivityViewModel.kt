@@ -28,20 +28,6 @@ class MainActivityViewModel :ViewModel(){
         tabList.add(@TagEnum PERSONAL)
     }
 
-//    fun addFragment(context: Context,fragment: Fragment,@TagEnum tag:String){
-//        if (tabList.size == 5){
-//            ToastUtil.setToast(context,"已经设置够多了，不能再设置了")
-//            return
-//        }
-//        if (tabList.contains(tag)){
-//            ToastUtil.setToast(context,"这个页面已经设置了，换一个呗！！")
-//            return
-//        }
-//        tabList.add(tag)
-//        fragmentList.add(fragmentMap[tag])
-//        ToastUtil.setToast(context,"设置成功")
-//    }
-
     fun removeFragment(context: Context,@TagEnum tag:String){
         if (tag == CHATTING || tag == PERSONAL){
             ToastUtil.setToast(context,"这个页面是不可删除的")

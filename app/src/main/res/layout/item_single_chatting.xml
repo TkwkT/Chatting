@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_single_chatting"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -30,28 +31,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toRightOf="@+id/civ_robot_head"
-                app:layout_constraintTop_toTopOf="@+id/civ_robot_head"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginLeft="16dp"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:text="机器人一号"/>
-
-            <TextView
-                android:id="@+id/tv_last_talk"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintLeft_toRightOf="@+id/civ_robot_head"
-                app:layout_constraintBottom_toBottomOf="@+id/civ_robot_head"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textColor="#AAA9A9"
-                android:textSize="14sp"
-                android:text="asdasdasdasdasdasssssssssssssssssssssasdasdasdasdasdssssssssasd"
-                android:layout_marginEnd="40dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,53 +1,40 @@
 package com.example.chatting.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chatting.R
 import com.example.chatting.databinding.ItemChattingNewsBinding
+import com.example.chatting.databinding.ItemSingleChattingBinding
 import com.example.chatting.holder.BaseHolder
 import com.example.chatting.holder.ChattingHolder
-import com.example.chatting.room.NewsBean
+import java.util.ArrayList
 
-class ChattingAdapter:RecyclerView.Adapter<BaseHolder>(){
+class ChattingAdapter : RecyclerView.Adapter<BaseHolder>(){
 
-    private val mDiffer = AsyncListDiffer<NewsBean>(this,NewsDiffCallback())
+    private val robotList = ArrayList<String>()
 
-    fun freshNews(list:List<NewsBean>){
-        mDiffer.submitList(list)
-        notifyDataSetChanged()
-    }
-
-    fun getItem(position: Int):NewsBean{
-        return mDiffer.currentList[position]
-    }
-
-    override fun getItemCount(): Int {
-        return mDiffer.currentList.size
+    fun freshList(sth:String?){
+        robotList.clear()
+        if (sth != null) {
+            robotList.add(sth)
+            notifyDataSetChanged()
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseHolder {
-        val binding = DataBindingUtil.inflate<ItemChattingNewsBinding>(LayoutInflater.from(parent.context),R.layout.item_chatting_news,parent,false)
+        val binding = DataBindingUtil.inflate<ItemSingleChattingBinding>(LayoutInflater.from(parent.context), R.layout.item_single_chatting,parent,false)
         return ChattingHolder(binding)
     }
 
+    override fun getItemCount(): Int {
+        return robotList.size
+    }
+
     override fun onBindViewHolder(holder: BaseHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
-}
-
-private class NewsDiffCallback : DiffUtil.ItemCallback<NewsBean>() {
-
-    override fun areItemsTheSame(oldItem: NewsBean, newItem: NewsBean): Boolean {
-        return oldItem.id == newItem.id
+        holder.bind(robotList[position])
     }
 
-    override fun areContentsTheSame(oldItem: NewsBean, newItem: NewsBean): Boolean {
-        return oldItem == newItem
-    }
 }
