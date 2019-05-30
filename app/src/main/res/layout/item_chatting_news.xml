@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:minHeight="70dp">
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/user_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility= "visible"
+            app:constraint_referenced_ids="civ_news_user_head,fl_user_news"/>
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/robot_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:constraint_referenced_ids="civ_news_robot_head,fl_robot_news"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_news_robot_head"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_robot"/>
+
+        <FrameLayout
+            android:id="@+id/fl_robot_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/civ_news_robot_head"
+            app:layout_constraintLeft_toRightOf="@+id/civ_news_robot_head"
+            android:background="@drawable/bg_white">
+
+            <TextView
+                android:id="@+id/tv_robot_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:layout_gravity="center_vertical"
+                android:textSize="14sp"/>
+
+            <ImageView
+                android:id="@+id/iv_robot_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"/>
+
+        </FrameLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_news_user_head"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_robot"/>
+
+        <FrameLayout
+            android:id="@+id/fl_user_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/civ_news_user_head"
+            app:layout_constraintRight_toLeftOf="@+id/civ_news_user_head"
+            android:background="@drawable/bg_blue"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:id="@+id/tv_user_news"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="200dp"
+                android:textColor="#ffffff"
+                android:layout_gravity="center_vertical"
+                android:textSize="14sp"/>
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
