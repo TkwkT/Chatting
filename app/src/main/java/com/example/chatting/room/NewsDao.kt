@@ -1,8 +1,6 @@
 package com.example.chatting.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface NewsDao {
@@ -10,7 +8,7 @@ interface NewsDao {
     @Query("SELECT * FROM news LIMIT 1")
     fun getLast():NewsBean
 
-    @Query("SELECT * FROM news LIMIT 50")
+    @Query("SELECT * FROM news")
     fun getAll():List<NewsBean>
 
     @Insert
@@ -19,10 +17,16 @@ interface NewsDao {
     @Insert
     fun insertNewsList(newsList: List<NewsBean>)
 
-    @Query("SELECT id FROM news LIMIT 1")
+    @Query("SELECT news_id FROM news LIMIT 1")
     fun getLastId():Int
 
-    @Query("SELECT * FROM news WHERE id >= :begin AND id <= :end")
+    @Query("SELECT * FROM news WHERE news_id >= :begin AND news_id <= :end")
     fun getSomeNews(begin:Int,end:Int):List<NewsBean>
+
+    @Query("DELETE FROM news")
+    fun removeNews()
+
+    @Query("UPDATE news SET uri = :uri")
+    fun updateUri(uri:String)
 
 }

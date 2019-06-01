@@ -22,6 +22,7 @@ class ChattingInterfaceAdapter:RecyclerView.Adapter<BaseHolder>(){
     fun freshNews(list:List<NewsBean>){
         mDiffer.submitList(list)
         notifyDataSetChanged()
+        Log.d("aaa","notify")
     }
 
     fun getItem(position: Int):NewsBean{

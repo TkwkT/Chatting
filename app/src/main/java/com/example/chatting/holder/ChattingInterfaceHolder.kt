@@ -1,6 +1,8 @@
 package com.example.chatting.holder
 
 import android.view.View
+import com.bumptech.glide.Glide
+import com.example.chatting.R
 import com.example.chatting.constdata.TYPE_IMAGE
 import com.example.chatting.databinding.ItemChattingNewsBinding
 import com.example.chatting.room.NewsBean
@@ -14,6 +16,7 @@ class ChattingInterfaceHolder(private val binding:ItemChattingNewsBinding) :Base
                 binding.robotGroup.visibility = View.GONE
                 binding.userGroup.visibility = View.VISIBLE
                 binding.tvUserNews.text = t.news
+                Glide.with(context).load(t.uri).error(R.drawable.ic_robot).into(binding.civNewsUserHead)
             }else{
                 binding.userGroup.visibility = View.GONE
                 binding.robotGroup.visibility = View.VISIBLE

@@ -7,10 +7,16 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "news")
 data class NewsBean (
     val news:String,
+
     @ColumnInfo(name = "is_user")
     val isUser:Boolean,
-    val type:String){
+    val type:String
+){
 
+    var uri:String = ""
     @PrimaryKey(autoGenerate = true)
-    var id:Int = 1
+    @ColumnInfo(name = "news_id")
+    var id:Int = 0
+
+
 }

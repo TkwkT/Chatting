@@ -6,13 +6,14 @@ import com.example.chatting.constdata.*
 import com.example.chatting.http.ChattingNewsHttp
 import com.example.chatting.room.AppDatabase
 import com.example.chatting.room.NewsBean
+import com.example.chatting.room.UriBean
 import com.example.chatting.utils.runOnNewThread
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.ArrayList
 
-object ChattingInterfaceModel {
+class ChattingInterfaceModel {
 
     private fun getResult(request:ChattingRequestBean):Call<ChattingPostBackBean>{
         val chattingNewsHttp = ChattingNewsHttp()
@@ -60,6 +61,13 @@ object ChattingInterfaceModel {
         getRequest(context,chattingRequestData,callback)
     }
 
+    fun getUri(context: Context,callback:(UriBean) -> Unit){
+        runOnNewThread {
+            val db = AppDatabase.getInstance(context)
+            callback(db.uriDao().getLast())
+        }
+    }
+
     private fun insertDB(context: Context,newsList:List<NewsBean>){
         runOnNewThread {
             val db = AppDatabase.getInstance(context)
@@ -78,6 +86,15 @@ object ChattingInterfaceModel {
         runOnNewThread {
             val db = AppDatabase.getInstance(context)
             callback(db.newsDao().getAll())
+        }
+    }
+
+    companion object {
+
+        @Volatile private var instance: ChattingInterfaceModel? = null
+
+        fun getInstance() = instance ?: synchronized(this) {
+            instance ?: ChattingInterfaceModel().also { instance = it }
         }
     }
 }

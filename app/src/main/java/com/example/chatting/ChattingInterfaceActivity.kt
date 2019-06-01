@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatting.adapter.ChattingInterfaceAdapter
 import com.example.chatting.databinding.ActivityChattingBinding
 import com.example.chatting.viewmodel.ChattingInterfaceViewModel
@@ -21,12 +22,14 @@ class ChattingInterfaceActivity : AppCompatActivity() {
         init(binding,viewModel)
     }
 
-    fun init(binding: ActivityChattingBinding, interfaceViewModel: ChattingInterfaceViewModel){
-        interfaceViewModel.getAll(this)
-        submit(interfaceViewModel)
+    fun init(binding: ActivityChattingBinding, viewModel: ChattingInterfaceViewModel){
+        binding.rvChattingNews.layoutManager = LinearLayoutManager(this)
         binding.rvChattingNews.adapter = adapter
+        viewModel.getAll(this){
+            adapter.freshNews(it)
+        }
         editTextListen(binding)
-        buttonOnClick(binding,interfaceViewModel)
+        buttonOnClick(binding,viewModel)
     }
 
     fun editTextListen(binding: ActivityChattingBinding){
@@ -58,16 +61,17 @@ class ChattingInterfaceActivity : AppCompatActivity() {
         binding.btSendNews.setOnClickListener {
             val text = binding.etChattingNews.text.toString()
             interfaceViewModel.getNews(this,text)
-            submit(interfaceViewModel)
+            submit(interfaceViewModel,binding)
             binding.etChattingNews.setText("")
         }
     }
 
-    fun submit(viewModel: ChattingInterfaceViewModel){
+    fun submit(viewModel: ChattingInterfaceViewModel,binding: ActivityChattingBinding){
         viewModel.newsList.observe({
             lifecycle
         },{
             adapter.freshNews(it)
+            binding.rvChattingNews.scrollToPosition(it.size - 1)
         })
     }
 
