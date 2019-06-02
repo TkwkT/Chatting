@@ -30,11 +30,8 @@ class ChattingInterfaceViewModel:ViewModel(){
 
     fun getNews(context: Context,editText: String){
         val newsData = NewsBean(editText,true, TYPE_TEXT)
-        ChattingInterfaceModel.getInstance().getUri(context){
-            newsData.uri = it.uri
-            newsT.add(newsData)
-            newsList.value = newsT
-        }
+        newsT.add(newsData)
+        newsList.value = newsT
         ChattingInterfaceModel.getInstance().createRequestData(context,newsData){
             newsT.addAll(it)
             newsList.value = newsT
